@@ -1,0 +1,1018 @@
+<!doctype html>
+<html lang="pt-PT">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#141a36">
+<meta name="description" content="STUDIO OM — três aplicações interativas: nuvem de palavras, formatos e cores e jogo do número secreto.">
+<title>STUDIO OM — Dashboard Oficina Multimédia</title>
+<style>
+/* Estilos internos das ferramentas originais */
+.window-app{min-width:0;display:flex;align-items:center;gap:10px;margin-left:12px}
+.window-app-mark{width:27px;height:27px;border-radius:9px;display:grid;place-items:center;font-weight:900;font-size:16px;color:white;background:#f6755c}
+.window-app-mark.format{background:#2199a3}.window-app-mark.game{background:#8865d6}
+.window-app b{display:block;font-size:12px;font-weight:800;letter-spacing:-.2px}
+.window-app small{display:block;color:#8a91a5;font-size:10px;letter-spacing:.08em;font-weight:700}
+.window-badge{margin-left:auto;background:#f4f5fa;color:#828a9d;border:1px solid #e9eaf1;border-radius:7px;font-size:10px;font-weight:750;padding:5px 9px;white-space:nowrap}
+.module-head{padding:22px 29px 17px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:16px;background:#fff}
+.module-eyebrow{color:#f16e58;font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin:0 0 5px}
+.module-head h1{font-size:25px;letter-spacing:-1.1px;font-weight:850;line-height:1.15;margin:0;color:#20253d}
+.module-head p.sub{margin:5px 0 0;color:#8d94a8;font-size:11px}
+.head-signet{border:1px solid #ebe9f2;background:#f8f8fc;color:#777b95;border-radius:30px;padding:7px 12px;font-size:10px;font-weight:780;white-space:nowrap}
+.module-grid{display:grid;grid-template-columns:minmax(0,1.6fr) minmax(310px,1fr);align-items:stretch;min-height:445px}
+.stage{min-width:0;padding:24px 28px 26px;background:#f8f9fc}
+.inspector{background:#fff;border-left:1px solid var(--line);min-width:0;padding:24px 25px 26px}
+.section-top{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:13px}
+.section-top strong{color:#2f354d;font-size:12px;font-weight:850}
+.section-top span{font-size:11px;color:#9399ac}
+.cloud-wrap{overflow:hidden;border-radius:16px;box-shadow:0 8px 25px #22264c0c;border:1px solid #e4e4f2;background:#eeedff}
+#cloudCanvas{display:block;width:auto;max-width:100%;height:auto;max-height:630px;margin:auto;box-shadow:0 10px 35px #26305925}
+.stat-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:13px}
+.stat-pill{display:flex;align-items:center;gap:6px;padding:7px 11px;border:1px solid #e8e9f1;background:white;border-radius:8px;font-size:10px;color:#9299aa}
+.stat-pill b{color:#293249;font-weight:850}
+.sticker-note{margin-top:19px;padding:17px;border-radius:12px;border:1px solid #e9e7f0;background:#fff}
+.sticker-note .note-title{font-size:12px;font-weight:850;margin:0 0 6px}
+.sticker-note .note-sub{margin:0 0 10px;color:#9098a8;font-size:11px;line-height:1.65}
+.synonym-list{display:flex;flex-wrap:wrap;gap:7px}
+.synonym{padding:6px 8px;border:1px solid #ebe7fd;background:#f6f2ff;border-radius:7px;color:#6154b8;font-size:10px;font-weight:750}
+.synonym:hover{background:#ebe5ff}
+.helper-text{font-size:11px;color:#8d94a6;line-height:1.65}
+.inspector-top{display:flex;align-items:center;justify-content:space-between;margin:0 0 17px}
+.inspector-top h2{margin:0;font-size:13px;color:#293149;letter-spacing:-.2px}
+.inspector-top span{font-size:9px;letter-spacing:1px;font-weight:850;background:#fff2eb;color:#dd7558;padding:5px 7px;border-radius:6px}
+.field{margin-bottom:15px}
+.field label,.field-title{display:block;font-weight:760;font-size:11px;color:#50596f;margin:0 0 6px}
+.field-note{color:#99a0b0;font-size:10px;margin:5px 0 0}
+textarea,input[type=text],input[type=number],select{width:100%;min-width:0;display:block;border-radius:9px;border:1px solid #e5e7ef;background:#fbfbfd;color:#2a3146;padding:9px 11px;font-size:12px;outline:none;transition:border-color .15s,box-shadow .15s}
+textarea:hover,input[type=text]:hover,input[type=number]:hover,select:hover{border-color:#cacbdc}
+textarea:focus,input[type=text]:focus,input[type=number]:focus,select:focus{border-color:#9281e3;box-shadow:0 0 0 3px #8679e51d}
+textarea{resize:vertical;min-height:97px;max-height:200px;line-height:1.55}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.color-row{display:flex;align-items:center;gap:9px}
+input[type=color]{width:40px;height:37px;border:1px solid #e6e7ef;background:#fff;padding:3px;border-radius:9px;cursor:pointer}
+.color-code{color:#59617a;font-size:11px;font-weight:800;font-variant-numeric:tabular-nums}
+.actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.btn{min-height:39px;padding:9px 13px;border-radius:9px;font-size:11px;font-weight:800;display:inline-flex;align-items:center;justify-content:center;gap:7px;border:1px solid transparent;transition:background .15s,transform .15s}
+.btn:hover:not(:disabled){transform:translateY(-1px)}
+.btn-primary{color:#fff;background:#f36e56;box-shadow:0 5px 15px #f36e562e}
+.btn-primary:hover{background:#df5846}
+.btn-outline{color:#5b6278;background:white;border-color:#e5e7f1}
+.btn-outline:hover{background:#f8f8fe}
+.actions .btn{flex:1}
+.preset-row{display:flex;gap:7px;flex-wrap:wrap}
+.preset{border:1px solid #e5e7f0;border-radius:8px;background:#fff;padding:7px 10px;color:#687087;font-size:11px;font-weight:750}
+.preset:hover,.preset.active{color:#de6852;border-color:#ffbaa7;background:#fff5f0}
+.screen-stage{display:grid;place-items:center;min-height:290px;border:1px solid #e5e7f0;border-radius:15px;overflow:hidden;background:radial-gradient(circle at 50% 36%,#e5edff 0%,#f1f5fb 57%,#f9fafc 100%);padding:16px}
+.screen-shape{display:grid;place-items:center;flex-shrink:0;border:8px solid #202c44;border-radius:10px;background:linear-gradient(140deg,#7fd3d3,#7b91ce 65%,#bd9bcd);box-shadow:0 18px 28px #3e5e8f35;transition:width .2s,height .2s;max-width:100%;}
+.screen-content{text-align:center;color:#1b3b55;max-width:100%;padding:7px;overflow:hidden}
+.screen-content strong{display:block;font-size:clamp(14px,2vw,24px);line-height:1.1;letter-spacing:-1px;font-weight:900}
+.screen-content small{display:block;font-size:10px;font-weight:650;margin-top:5px;white-space:nowrap}
+.screen-shape.tiny .screen-content{display:none}
+.metrics{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:11px}
+.metric{border:1px solid #e5e7f0;border-radius:10px;background:#fff;padding:11px 9px;min-width:0}
+.metric span{display:block;color:#9aa0b0;font-size:10px}
+.metric strong{display:block;color:#303b52;font-size:13px;font-weight:850;margin-top:3px;overflow-wrap:anywhere}
+.palette-band{margin-top:16px;background:#fff;border:1px solid #e6e8f0;padding:13px;border-radius:12px}
+.palette-band-top{display:flex;align-items:center;justify-content:space-between;gap:13px;margin-bottom:11px}
+.palette-band-top h3{margin:0;font-size:12px}
+.palette-band-top span{font-size:10px;color:#9a9fb0}
+.palette-cells{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:7px}
+.swatch{padding:4px;background:#fff;border:1px solid #e9eaf1;border-radius:9px;text-align:center;min-width:0}
+.swatch:hover{border-color:#afa5e5}
+.swatch-color{display:block;height:36px;border-radius:6px}
+.swatch-label{display:block;padding:5px 1px 2px;font-size:9px;color:#717a8c;font-weight:800;overflow:hidden;text-overflow:ellipsis}
+.info-card{background:#f7f9fd;border:1px solid #e8eaf0;padding:12px;border-radius:10px;margin-top:13px}
+.info-card strong{font-size:11px}.info-card p{margin:5px 0 0;color:#929aaa;font-size:10px;line-height:1.6}
+.game-stage{position:relative;background:radial-gradient(circle at 54% 32%,#473985 0,#252449 47%,#181d35 100%);color:white;display:flex;align-items:center;justify-content:center;flex-direction:column;min-height:440px;text-align:center;overflow:hidden}
+.game-stage::before{content:"";position:absolute;inset:17px;border:1px solid #ffffff22;border-radius:17px;pointer-events:none}
+.game-stage::after{content:"✳";position:absolute;top:17px;right:31px;font-size:44px;color:#d2bcff7c;transform:rotate(12deg)}
+.game-kicker{position:relative;color:#c0b4ff;font-size:10px;font-weight:850;letter-spacing:2px;text-transform:uppercase;margin:0 0 13px}
+.game-number{position:relative;font-size:clamp(51px,6vw,83px);font-weight:900;letter-spacing:-.09em;line-height:1.15;color:#f7efc2;text-shadow:0 7px 45px #e7dd8969;font-variant-numeric:tabular-nums}
+.game-range-label{position:relative;color:#b2afd4;font-size:12px;margin-top:8px;margin-bottom:28px}
+.game-form{position:relative;display:flex;align-items:stretch;gap:8px;max-width:380px;width:calc(100% - 65px)}
+.game-form input{background:#ffffffed;text-align:center;font-size:21px;font-weight:850;width:125px;flex:1;color:#27233d}
+.game-form .btn{flex:1;background:#f98b70;color:#272037;font-size:12px}
+.feedback{position:relative;width:calc(100% - 74px);max-width:510px;margin:18px auto 0;padding:11px 15px;border:1px solid #ffffff21;background:#ffffff15;border-radius:12px;color:#fff;text-align:left}
+.feedback strong{display:block;font-size:12px;margin-bottom:3px}.feedback p{margin:0;font-size:11px;color:#c6c5e3}
+.feedback.error{background:#f4655226;border-color:#f4655280}.feedback.success{background:#7fdfa727;border-color:#7fdfa783}
+.progress-meta{display:flex;justify-content:space-between;gap:10px;font-size:11px;color:#8c93a6;margin:18px 0 7px}.progress-meta strong{color:#3a435a}
+.track{width:100%;height:8px;border-radius:99px;background:#e9ecf3;overflow:hidden}.track>div{width:0;height:100%;background:linear-gradient(90deg,#7a68d6,#b39ff9);border-radius:inherit;transition:width .2s}
+.history-label{color:#586075;font-size:11px;font-weight:850;margin:20px 0 9px}
+.attempts-list{display:flex;gap:6px;flex-wrap:wrap;max-height:100px;overflow:auto;min-height:25px}
+.attempt-tag{padding:5px 8px;background:#f1edff;border:1px solid #e8e0ff;border-radius:7px;color:#5b4bad;font-size:11px;font-weight:800}
+.muted{color:#929aaa;font-size:11px}
+.best-score{margin-top:18px;padding:13px;background:#f8f6ff;border:1px solid #ebe7ff;border-radius:10px}
+.best-score span{display:block;color:#80829b;font-size:10px}.best-score strong{display:block;color:#5849ba;font-size:18px;font-weight:850;margin-top:3px}
+.side-divider{height:1px;background:#eceef4;margin:16px 0}
+
+/* Estrutura e ajustes do design desktop */
+/* STUDIO OM — Versão desktop com aplicações em linha */
+:root {
+  --page: #141a36; --page-deep: #0c1026; --surface: #ffffff;
+  --text: #1f253d; --muted: #858ca4; --line: #e9eaf1;
+  --coral: #ff8e78; --violet: #8172ee; --aqua: #75c5d1;
+  --shadow: 0 26px 78px rgba(6, 9, 32, .25);
+  font-synthesis: none;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 95px; }
+body {
+  margin: 0; min-width: 320px; min-height: 100vh; overflow-x: hidden;
+  background: var(--page); color: #f7f7ff;
+  font: 15px/1.55 Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+button, input, select, textarea { font: inherit; }
+button { cursor: pointer; touch-action: manipulation; }
+button:disabled { cursor: not-allowed; opacity: .55; }
+:where(button,input,select,textarea):focus-visible { outline: 3px solid #aaa0ff; outline-offset: 3px; }
+[hidden] { display: none !important; }
+.decorative-background { position: fixed; inset: 0; z-index: -1; pointer-events: none; overflow: hidden;
+  background: radial-gradient(ellipse 58% 42% at 77% 30%, rgba(87,83,159,.37),transparent 81%),
+    radial-gradient(ellipse 52% 40% at 13% 78%,rgba(27,75,113,.27),transparent 77%),
+    linear-gradient(130deg,#151a36,#141b36 55%,#171b38); }
+.decorative-background::before { content: ''; position: absolute; inset: 80px 0 0;
+  background-image: radial-gradient(rgba(206,213,254,.4) 1.2px,transparent 1.2px); background-size: 43px 43px;
+  mask-image: linear-gradient(#0009,#0006 65%,transparent); opacity: .45; }
+.decorative-background::after { content: ''; position: absolute; width: 1040px; height: 1040px;
+  border-radius: 50%; border: 1px solid rgba(255,255,255,.14); right: -430px; top: 180px;
+  box-shadow: 0 0 0 125px rgba(255,255,255,.018), 0 0 0 290px rgba(255,255,255,.013); }
+.container { width: min(1480px,calc(100% - 64px)); margin: 0 auto; }
+.topbar { height: 78px; background: rgba(10,14,34,.83); backdrop-filter: blur(22px);
+  -webkit-backdrop-filter: blur(22px); border-bottom: 1px solid rgba(255,255,255,.11);
+  position: sticky; top: 0; z-index: 25; }
+.topbar-inner { height: 100%; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+.brand { display: inline-flex; align-items: center; gap: 15px; font-size: 22px; font-weight: 850; letter-spacing: -.8px; white-space: nowrap; }
+.brand-icon { width: 43px; height: 43px; border-radius: 13px; display: grid; place-items: center;
+  background: #ff856c; color: #231a32; font-size: 29px; line-height: 1; }
+.top-right { display: flex; align-items: center; gap: 13px; color: #b5bed7; font-size: 12px; font-weight: 650; }
+.status-dot { width: 9px; height: 9px; border-radius: 50%; background: #9ee7a3; box-shadow: 0 0 18px rgba(166,255,176,.5); }
+.status-label { letter-spacing: .045em; }
+.clock { color: #eef1ff; font-size: 15px; font-weight: 760; font-variant-numeric: tabular-nums; letter-spacing: 1px; margin-left: 14px; }
+.hero { position: relative; padding: 61px 0 44px; min-height: 330px; isolation: isolate; }
+.hero-kicker, .module-eyebrow { text-transform: uppercase; letter-spacing: 3.4px; font-weight: 850; }
+.hero-kicker { color: #ffa48f; margin: 0 0 14px; font-size: 13px; }
+.hero h1 { font-size: clamp(56px,6.4vw,91px); line-height: 1.04; letter-spacing: -.064em;
+  margin: 0; font-weight: 860; max-width: 1030px; }
+.hero h1 em { font-style: normal; color: #ffa48f; }
+.hero-description { font-size: clamp(15px,1.45vw,19px); margin: 19px 0 0; color: #b3bbd4; }
+.hero-sticker { position: absolute; z-index: -1; right: 4.5%; top: 38px; width: 142px; height: 142px; transform: rotate(15deg);
+  display: grid; place-items: center; border: 1px solid #ffe3be9b; border-radius: 50%;
+  background: rgba(255,229,214,.13); color: #ffe3be; font-size: 48px; }
+.hero-sticker::after { content:'LAB EDITION'; position:absolute; bottom: 24px;
+  font-size:10px; font-weight:900; letter-spacing: 2.6px; }
+.tiles-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; margin: 0 0 15px; }
+.tiles-heading h2 { margin: 0; font-size: 13px; letter-spacing: .09em; color: #d9def1; text-transform: uppercase; font-weight: 790; }
+.tiles-heading p { margin: 0; color: #919cbf; font-size: 12px; }
+.app-switcher { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 18px; }
+.app-tile { min-height: 174px; display: flex; flex-direction: column; align-items: center; justify-content: center;
+  position: relative; gap: 12px; padding: 26px 22px; border: 1px solid rgba(232,235,255,.20);
+  border-radius: 23px; color: #f5f5ff; background: rgba(255,255,255,.085); text-align:center;
+  box-shadow: inset 0 1px rgba(255,255,255,.055); transition: border-color .2s, background .2s, transform .2s, box-shadow .2s; }
+.app-tile:hover { transform: translateY(-4px); background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.45); }
+.app-tile[aria-selected="true"] { border-color: rgba(255,175,150,.77); background: rgba(255,255,255,.15); box-shadow: inset 0 1px rgba(255,255,255,.12), 0 10px 36px rgba(2,6,25,.13); }
+.app-tile .tile-index { position: absolute; left: 22px; top: 17px; color: #9aa2c1; font-weight: 800; font-size: 11px; letter-spacing: 1.3px; }
+.app-tile .app-glyph { height: 69px; width: 69px; display: grid; place-items: center; position: relative;
+  border-radius: 20px; font-size: 36px; line-height: 1; font-weight: 850; box-shadow: 0 13px 28px rgba(2,6,20,.19),inset 0 2px 2px rgba(255,255,255,.45); }
+.app-glyph::after { content:''; position:absolute; inset:5px; border-radius:16px; border:1px solid rgba(255,255,255,.5); pointer-events:none; }
+.app-glyph.word { background: linear-gradient(135deg,#ffe0b3,#ff8f73); color:#75402f; }
+.app-glyph.format { background: linear-gradient(135deg,#afeaee,#52acbc); color:#1d5363; }
+.app-glyph.game { background: linear-gradient(135deg,#dfccff,#9b71ed); color:#432b79; }
+.tile-name { font-size: 15px; font-weight: 790; letter-spacing: -.15px; }
+.tile-description { display:none; color:#c5cbe2; font-size:12px; }
+.program-region { margin: 34px 0 65px; }
+.app-window { width: 100%; overflow:hidden; background: #fff; color:var(--text);
+  border-radius: 27px; border: 1px solid rgba(255,255,255,.65); box-shadow: var(--shadow);
+  scroll-margin-top: 101px; animation: panel-enter .24s ease both; }
+@keyframes panel-enter { from { opacity:.4;transform: translateY(13px); } to {opacity:1;transform:translateY(0)} }
+.window-bar { min-height: 77px; padding: 0 29px; display: flex; align-items: center; gap: 17px;
+  background: #fff; border-bottom: 1px solid #e9eaf2; }
+.traffic { display: flex; gap: 12px; flex-shrink:0; align-items:center; }
+.traffic span { width: 17px; height: 17px; display:block; border-radius:50%; border:1px solid rgba(0,0,0,.07); }
+.traffic .close { background: #ff625a; }.traffic .minimize { background: #f7bd4d; }.traffic .maximize { background:#50c56b; }
+.window-app { margin-left: 26px; gap: 13px; }
+.window-app-mark { width: 43px; height:43px; border-radius:13px; font-size:21px; }
+.window-app b { font-size:17px; letter-spacing:-.4px; }
+.window-app small { font-size:11px; letter-spacing: .13em; }
+.window-badge { padding:8px 13px; font-size:11px; letter-spacing: .02em; border-radius:10px; }
+.window-content { min-height: 0; overflow: visible; }
+.module-head { padding: 39px 45px 32px; }
+.module-eyebrow { font-size: 12px; color:#f36b58; letter-spacing: 3px; margin-bottom:9px; }
+.module-head h1 { font-size: clamp(28px,3.1vw,42px); letter-spacing:-1.8px; }
+.module-head p.sub { font-size: 15px; margin-top: 9px; }
+.head-signet { font-size:12px; padding:9px 17px; }
+.module-grid { grid-template-columns: minmax(0, 1.68fr) minmax(355px, .83fr); min-height: 540px; }
+.stage { padding: 32px 37px 39px; }
+.inspector { padding: 32px 32px 39px; }
+.section-top { margin-bottom: 19px; }
+.section-top strong { font-size: 17px; }
+.section-top span { font-size: 13px; }
+.cloud-wrap { border-radius: 20px; display:grid;place-items:center;min-height:290px;padding:clamp(12px,2vw,22px);background:#e9edf7; }
+.cloud-wrap #cloudCanvas { max-height:min(64vh,660px); }
+.cloud-format-note {margin-top:7px;font-size:11px;color:#8992a6;line-height:1.5}
+.custom-poster-controls{padding:13px;margin-top:-6px;margin-bottom:16px;border:1px solid #e6e8f2;border-radius:12px;background:#f8f9fe}
+.custom-poster-controls .form-row .field{margin-bottom:10px}
+.custom-poster-controls .btn{width:100%}
+.poster-error{font-size:11px;color:#b64c4c;margin:8px 0 0;min-height:0}
+
+.stat-pills { margin-top:20px; gap: 10px; }
+.stat-pill { padding:9px 13px; font-size: 12px; }
+.sticker-note { padding:19px 21px; margin-top:21px; }
+.sticker-note .note-title { font-size:14px; }
+.sticker-note .note-sub { font-size:12px; }
+.synonym { padding:7px 10px; font-size:12px; }
+.helper-text { font-size:12px; }
+.inspector-top { margin-bottom: 22px; }
+.inspector-top h2 { font-size: 17px; }
+.field { margin-bottom:19px; }
+.field label,.field-title { font-size: 13px; margin-bottom: 8px; }
+textarea,input[type=text],input[type=number],select { padding: 12px 13px; font-size: 13px; border-radius: 11px; }
+textarea { min-height: 136px; max-height: 310px; }
+.field-note { font-size:11px; }
+.btn { min-height: 45px; font-size:13px; padding:11px 15px; border-radius:11px; }
+.preset { font-size:12px; padding:9px 11px; }
+.screen-stage { min-height: 355px; }
+.metrics { gap:10px; margin-top:14px; }
+.metric { padding:14px 13px; }
+.metric span { font-size: 12px; }.metric strong { font-size:17px; }
+.palette-band { margin-top:20px; padding:18px; }.palette-band-top h3 { font-size:15px; }
+.palette-band-top span { font-size:12px; }
+.swatch-color { height:50px; }.swatch-label { font-size:11px; }
+.info-card { padding:15px 17px; }.info-card strong { font-size:13px; }.info-card p { font-size:12px; }
+.game-stage { min-height: 535px; }.game-kicker { font-size:12px; }.game-number { font-size: clamp(65px,7vw,104px); }
+.game-range-label { font-size:15px; }.game-form { max-width:465px; }
+.game-form .btn { font-size:14px; }.feedback { padding:15px 19px; margin-top:24px; }
+.feedback strong { font-size:14px; }.feedback p { font-size:13px; }
+.progress-meta { font-size:13px; }.progress-meta strong { font-size:13px; }
+.history-label { font-size:13px; }.attempt-tag { font-size:12px; }
+.best-score { padding:18px; }.best-score span { font-size:12px; }.best-score strong { font-size:23px; }
+#toast { position: fixed; z-index: 60; right:28px; bottom:26px; padding:12px 18px;
+  background:#232a46; color:#fff; border:1px solid #ffffff35; border-radius:12px;
+  box-shadow: 0 10px 40px #03051455; opacity:0; pointer-events:none;
+  transform: translateY(12px); transition:opacity .2s,transform .2s; font-size:13px; }
+#toast.visible { opacity: 1; transform:none; }
+.site-footer { padding:0 0 33px; display:flex; justify-content:space-between;gap:12px;color:#909cbd;font-size:12px; }
+@media (min-width: 1500px) { .hero { padding-top: 73px; padding-bottom: 55px; } .app-tile { min-height:185px; } }
+@media (max-width: 1090px) { .module-grid { grid-template-columns:minmax(0,1fr) 330px; } .module-head { padding:30px; } .stage,.inspector { padding:27px; } .hero-sticker { right:0;opacity:.6; } }
+@media (max-width: 900px) { .container { width:min(100% - 36px,760px); } .hero { min-height:0; padding:47px 0 34px; } .hero h1 { font-size: clamp(48px,8vw,72px); } .hero-sticker { width:88px;height:88px; font-size:30px;right:0;top:25px; } .hero-sticker::after { font-size:6px;bottom:12px; } .app-switcher { gap:11px; } .app-tile { min-height:146px;padding:21px 11px; } .app-tile .app-glyph { width:55px;height:55px;border-radius:16px;font-size:27px; } .app-glyph::after {border-radius:12px;} .tile-name {font-size:12px;} .app-tile .tile-index {top:11px;left:13px;font-size:9px;} .module-grid { grid-template-columns:1fr; } .inspector {border-left:0;border-top:1px solid var(--line);} .window-bar {padding:0 18px;} .module-head {padding:27px;} .game-stage {min-height:440px;} }
+@media (max-width: 580px) { .container {width:calc(100% - 28px);} .topbar {height:64px;} .brand {font-size:16px; gap:9px;} .brand-icon {width:34px;height:34px;border-radius:10px;font-size:23px;} .status-label {display:none;} .clock {font-size:12px;margin-left:2px;} .hero {padding-top:41px;} .hero h1 {font-size:clamp(40px,10vw,60px);} .hero-kicker {font-size:10px;letter-spacing:2.4px;} .hero-description {font-size:13px;max-width:330px;} .hero-sticker {display:none;} .tiles-heading p {display:none;} .app-switcher {grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;} .app-tile {min-height:116px;padding:21px 4px 13px;gap:10px;border-radius:15px;} .app-tile .app-glyph {height:42px;width:42px;font-size:21px;border-radius:12px;} .app-tile .app-glyph::after {inset:3px;border-radius:9px;} .app-tile .tile-index {left:9px;top:7px;font-size:8px;} .tile-name {font-size:10px;} .program-region {margin-top:19px;} .app-window {border-radius:18px;} .window-bar {min-height:60px;gap:9px;padding:0 13px;} .traffic {gap:5px;} .traffic span {height:10px;width:10px;} .window-app {margin-left:3px;gap:9px;} .window-app-mark {width:30px;height:30px;border-radius:9px;font-size:15px;} .window-app b {font-size:12px;} .window-app small {font-size:8px;} .window-badge {display:none;} .module-head {padding:23px 18px;} .module-head h1 {font-size:27px;letter-spacing:-1.1px;} .module-head p.sub {font-size:12px;} .head-signet {display:none;} .stage,.inspector {padding:19px 15px 25px;} .section-top strong {font-size:13px;}.section-top span{font-size:11px;} .stat-pills {gap:5px;}.stat-pill {font-size:10px;padding:6px 8px;}.sticker-note {padding:13px;}.inspector-top h2{font-size:15px;}.screen-stage {min-height:260px;} .metrics{gap:5px;}.metric{padding:10px 7px;}.metric span{font-size:10px;}.metric strong{font-size:11px;}.palette-band{padding:10px;}.palette-cells{gap:3px;}.swatch{padding:2px;}.swatch-color{height:31px;}.swatch-label{font-size:8px;}.game-stage{min-height:430px;padding:30px 0;}.game-number{font-size:57px;}.game-form{width:calc(100% - 30px);}.feedback{width:calc(100% - 32px);}.site-footer{font-size:10px;flex-wrap:wrap;} }
+@media (prefers-reduced-motion: reduce) { *,*::before,*::after {scroll-behavior:auto!important;transition:none!important;animation:none!important;} }
+
+
+/* Identificador de cores: selecionar tom e consultar HEX / RGB / HSL. */
+.swatch { cursor:pointer; transition: border-color .2s, box-shadow .2s, transform .2s; }
+.swatch[aria-pressed="true"] { border-color:#7468e3; box-shadow:0 0 0 2px rgba(116,104,227,.25); transform:translateY(-2px); }
+.color-inspector { display:grid;grid-template-columns:135px minmax(0,1fr);gap:18px;margin-top:17px;padding:16px;background:#f8f9fd;border:1px solid #e6e8f4;border-radius:15px;min-width:0; }
+.selected-color-preview { min-height:180px;border-radius:12px;border:1px solid rgba(21,30,58,.09);display:grid;place-items:center;transition:background-color .15s;box-shadow:inset 0 1px rgba(255,255,255,.22); }
+.selected-color-preview span { font-size:41px;letter-spacing:-2px;font-weight:850; }
+.selected-color-content {min-width:0;}
+.selected-color-heading {display:flex;justify-content:space-between;flex-wrap:wrap;align-items:baseline;gap:5px 10px;margin-bottom:12px;}
+.selected-color-heading h4 {font-size:14px;color:#2a3150;margin:0;font-weight:850;}
+.selected-color-heading span {font-size:11px;color:#8d94a8;}
+.color-value-grid {display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;}
+.color-value-button {display:flex;flex-direction:column;align-items:flex-start;min-width:0;padding:10px 11px;border:1px solid #e1e4f0;border-radius:10px;background:#fff;text-align:left;transition:border-color .16s,background .16s;}
+.color-value-button:hover {border-color:#998de6;background:#fbfaff;}
+.color-value-button small {font-size:10px;color:#8d94a8;font-weight:900;letter-spacing:.08em;}
+.color-value-button strong {font-size:12px;line-height:1.35;color:#29344c;overflow-wrap:anywhere;font-variant-numeric:tabular-nums;margin:4px 0 3px;}
+.color-value-button span {font-size:10px;color:#6655c9;font-weight:750;}
+.color-inspector-controls {display:flex;flex-wrap:wrap;align-items:end;gap:10px;margin-top:14px;}
+.color-inspector-controls label {font-size:10px;font-weight:750;color:#677088;display:flex;flex-direction:column;gap:5px;}
+.color-inspector-controls .picker-field input {height:38px;width:57px;border-radius:9px;}
+.color-inspector-controls .hex-field {min-width:112px;max-width:165px;flex:1;}
+.color-inspector-controls .hex-field input {width:100%;height:38px;font-size:12px;letter-spacing:.02em;background:white;}
+.color-inspector-action {min-height:38px;border:1px solid #dddaf1;border-radius:9px;padding:8px 12px;background:#fff;color:#5850a4;font-size:11px;font-weight:790;}
+.color-inspector-action:hover {background:#f0edff;border-color:#b9adef;}
+.color-inspector-tip {font-size:11px;line-height:1.5;color:#8991a7;margin:12px 0 0;}
+@media(max-width:700px) {
+  .color-inspector {grid-template-columns:1fr;gap:12px;padding:12px;}
+  .selected-color-preview {min-height:68px;}
+  .selected-color-preview span {font-size:28px;}
+}
+@media(max-width:460px) {
+  .color-value-grid {grid-template-columns:1fr;}
+  .color-value-button {display:grid;grid-template-columns:42px 1fr auto;align-items:center;gap:5px;}
+  .color-value-button strong {margin:0;}
+}
+</style>
+</head>
+<body>
+<div class="decorative-background" aria-hidden="true"></div>
+<header class="topbar"><div class="container topbar-inner">
+  <div class="brand"><span class="brand-icon" aria-hidden="true">✳</span><span>STUDIO OM</span></div>
+  <div class="top-right"><span class="status-dot" aria-hidden="true"></span><span class="status-label">DASHBOARD OFICINA MULTIMÉDIA</span><time class="clock" id="sysClock">--:--</time></div>
+</div></header>
+<main class="container">
+  <section class="hero" aria-labelledby="page-title">
+    <p class="hero-kicker">DASHBOARD / 2026</p>
+    <h1 id="page-title">Cria. Explora.<br>Experimenta<em>.</em></h1>
+    <p class="hero-description">Três aplicações. Uma experiência à tua maneira.</p>
+    <div class="hero-sticker" aria-hidden="true">✳</div>
+  </section>
+  <div class="tiles-heading"><h2>As tuas aplicações</h2><p>Seleciona um programa para o abrir em baixo ↓</p></div>
+  <nav class="app-switcher" aria-label="Selecionar programa" role="tablist">
+    <button type="button" id="tile-palavras" class="app-tile" role="tab" data-open="palavras" aria-controls="window-palavras" aria-selected="true" tabindex="0">
+      <span class="tile-index">01</span><span class="app-glyph word" aria-hidden="true">Aa</span><span class="tile-name">Nuvem de palavras</span>
+    </button>
+    <button type="button" id="tile-formatos" class="app-tile" role="tab" data-open="formatos" aria-controls="window-formatos" aria-selected="false" tabindex="-1">
+      <span class="tile-index">02</span><span class="app-glyph format" aria-hidden="true">◫</span><span class="tile-name">Cores & formatos</span>
+    </button>
+    <button type="button" id="tile-jogo" class="app-tile" role="tab" data-open="jogo" aria-controls="window-jogo" aria-selected="false" tabindex="-1">
+      <span class="tile-index">03</span><span class="app-glyph game" aria-hidden="true">#</span><span class="tile-name">Jogo secreto</span>
+    </button>
+  </nav>
+  <section class="program-region" id="programas" aria-label="Área do programa selecionado">
+<article aria-label="Aplicação Nuvem de palavras" aria-labelledby="tile-palavras" class="app-window" data-app="palavras" id="window-palavras" role="tabpanel" tabindex="0">
+<header class="window-bar"><div class="traffic"><span aria-hidden="true" class="close"></span><span aria-hidden="true" class="minimize"></span><span aria-hidden="true" class="maximize"></span></div><div class="window-app"><span class="window-app-mark">Aa</span><div><b>Nuvem de palavras</b><small>WORD CLOUD.APP</small></div></div><span class="window-badge">01 / CREATIVE TOOL</span></header>
+<div class="window-content"><div class="module-head"><div><p class="module-eyebrow">01 — palavras &amp; imaginação</p><h1>Dá forma às tuas ideias.</h1><p class="sub">Transforma o teu texto numa composição visual única.</p></div><span class="head-signet">✳ CRIAÇÃO EM TEMPO REAL</span></div>
+<div class="module-grid">
+<section class="stage"><div class="section-top"><strong>O teu canvas</strong><span aria-live="polite" id="cloudCount">A gerar…</span></div><div class="cloud-wrap"><canvas aria-label="Nuvem de palavras gerada" height="630" id="cloudCanvas" role="img" width="1200"></canvas></div><div class="stat-pills"><div class="stat-pill">Palavras totais <b id="textTotal">0</b></div><div class="stat-pill">Palavras distintas <b id="textUnique">0</b></div><div class="stat-pill">Formato <b id="posterDimensions">1200 × 630 px</b></div></div><div class="sticker-note"><p class="note-title">✦ Dashboard de sinónimos</p><p class="note-sub">Seleciona uma alternativa para substituir uma palavra no teu texto.</p><div aria-live="polite" class="synonym-list" id="synonymList"></div></div></section>
+<aside class="inspector"><div class="inspector-top"><h2>Personalização</h2><span>EDITOR</span></div><div class="field"><label for="poemText">Texto de origem</label><textarea id="poemText" maxlength="25000" placeholder="Escreve ou cola o teu poema aqui..." spellcheck="true"></textarea></div><div class="field"><label for="stopWords">Palavras a ignorar</label><input id="stopWords" spellcheck="false" type="text" value=""/><p class="field-note">Separa as palavras por vírgulas.</p></div><div class="form-row"><div class="field"><label for="maxWords">Quantidade</label><select id="maxWords"><option value="10">10 palavras</option><option selected="" value="20">20 palavras</option><option value="40">40 palavras</option><option value="80">80 palavras</option><option value="0">Todas (até 100)</option></select></div><div class="field"><label for="cloudPalette">Paleta</label><select id="cloudPalette"><option value="violeta">Violeta</option><option value="viridis">Viridis</option><option value="verde">Verde</option><option value="terra">Terra</option></select></div></div>
+<div class="field"><label for="posterFormat">Formato do cartaz</label>
+  <select id="posterFormat">
+    <option value="original">Paisagem original · 1200 × 630</option>
+    <option value="a4-v">A4 vertical · 1240 × 1754</option>
+    <option value="a4-h">A4 horizontal · 1754 × 1240</option>
+    <option value="a3-v">A3 vertical · 1754 × 2480</option>
+    <option value="quadrado">Quadrado · 1200 × 1200</option>
+    <option value="poster-45">Cartaz 4:5 · 1080 × 1350</option>
+    <option value="story">Story vertical · 1080 × 1920</option>
+    <option value="panorama">Horizontal 16:9 · 1920 × 1080</option>
+    <option value="personalizado">Personalizado…</option>
+  </select>
+  <p class="cloud-format-note" id="posterFormatNote">Escolhe a dimensão da nuvem e do PNG. A4/A3 usam cerca de 150 ppp.</p>
+</div>
+<div class="custom-poster-controls" id="customPosterControls" hidden>
+  <div class="form-row">
+    <div class="field"><label for="posterWidth">Largura (px)</label><input type="number" id="posterWidth" min="320" max="4000" step="1" value="1200" inputmode="numeric"></div>
+    <div class="field"><label for="posterHeight">Altura (px)</label><input type="number" id="posterHeight" min="320" max="4000" step="1" value="630" inputmode="numeric"></div>
+  </div>
+  <button class="btn btn-outline" type="button" id="applyCustomPoster">Aplicar dimensões</button>
+  <p class="poster-error" id="posterError" role="alert"></p>
+</div>
+<div class="field"><label for="cloudBg">Fundo</label><div class="color-row"><input id="cloudBg" type="color" value="#edefff"/><span class="color-code" id="cloudBgHex">#EDEFFF</span></div></div><div class="actions"><button class="btn btn-primary" id="generateCloud" type="button">✳ Gerar nuvem</button><button class="btn btn-outline" id="downloadCloud" type="button">↓ Guardar PNG</button></div></aside>
+</div>
+</div>
+</article>
+<article aria-label="Aplicação Formatos e cores" aria-labelledby="tile-formatos" class="app-window" data-app="formatos" hidden="" id="window-formatos" role="tabpanel" tabindex="0">
+<header class="window-bar"><div class="traffic"><span aria-hidden="true" class="close"></span><span aria-hidden="true" class="minimize"></span><span aria-hidden="true" class="maximize"></span></div><div class="window-app"><span class="window-app-mark format">◫</span><div><b>Formatos e cores</b><small>VISUAL LAB.APP</small></div></div><span class="window-badge">02 / DESIGN TOOL</span></header>
+<div class="window-content"><div class="module-head"><div><p class="module-eyebrow">02 — medidas &amp; harmonia</p><h1>Explora cada píxel.</h1><p class="sub">Resoluções, proporções e combinações cromáticas.</p></div><span class="head-signet">◈ DESIGN SYSTEM</span></div>
+<div class="module-grid">
+<section class="stage"><div class="section-top"><strong>Visualização da proporção</strong><span id="resolutionOrientation">Horizontal</span></div><div class="screen-stage"><div class="screen-shape" id="screenShape"><div class="screen-content"><strong id="screenName">Full HD</strong><small id="screenDimensions">1920 × 1080 px</small></div></div></div><div aria-live="polite" class="metrics"><div class="metric"><span>Categoria</span><strong id="resolutionClass">Full HD</strong></div><div class="metric"><span>Proporção</span><strong id="resolutionRatio">16:9</strong></div><div class="metric"><span>Total de píxeis</span><strong id="resolutionPixels">2,07 MP</strong></div></div><div class="palette-band">
+  <div class="palette-band-top"><h3>Paleta de cores</h3><span>Seleciona uma cor para descobrir o código</span></div>
+  <div class="palette-cells" id="paletteCells" role="group" aria-label="Cores da paleta gerada"></div>
+  <section class="color-inspector" aria-labelledby="selectedColorTitle">
+    <div class="selected-color-preview" id="selectedColorPreview" aria-hidden="true"><span>Aa</span></div>
+    <div class="selected-color-content">
+      <div class="selected-color-heading"><h4 id="selectedColorTitle">Identificador de cores</h4><span>Seleciona, consulta e copia o código</span></div>
+      <div class="color-value-grid">
+        <button type="button" class="color-value-button" data-copy-format="hex" aria-label="Copiar código HEX"><small>HEX</small><strong id="selectedHex">#547EAE</strong><span>Copiar código</span></button>
+        <button type="button" class="color-value-button" data-copy-format="rgb" aria-label="Copiar código RGB"><small>RGB</small><strong id="selectedRgb">rgb(84, 126, 174)</strong><span>Copiar código</span></button>
+        <button type="button" class="color-value-button" data-copy-format="hsl" aria-label="Copiar código HSL"><small>HSL</small><strong id="selectedHsl">hsl(212, 36%, 51%)</strong><span>Copiar código</span></button>
+      </div>
+      <div class="color-inspector-controls">
+        <label class="picker-field" for="colorInspectorPicker"><span>Escolher cor</span><input type="color" id="colorInspectorPicker" value="#547eae" aria-label="Escolher qualquer cor para descobrir o código"></label>
+        <label class="hex-field" for="colorHexInput"><span>Introduzir HEX</span><input id="colorHexInput" type="text" value="#547EAE" maxlength="7" spellcheck="false" autocomplete="off" placeholder="#RRGGBB" aria-label="Introduzir um código hexadecimal"></label>
+        <button type="button" class="color-inspector-action" id="useSelectedAsBase">Gerar paleta com esta cor</button>
+        <button type="button" class="color-inspector-action eyedropper-action" id="screenEyedropper" hidden>Capturar cor do ecrã</button>
+      </div>
+      <p class="color-inspector-tip">Clica num tom acima ou escolhe qualquer cor. Os códigos HEX, RGB e HSL atualizam-se automaticamente.</p>
+    </div>
+  </section>
+</div></section>
+<aside class="inspector"><div class="inspector-top"><h2>Configuração</h2><span>DESIGN</span></div><div class="field"><span class="field-title">Resoluções rápidas</span><div class="preset-row"><button class="preset" data-h="720" data-w="1280" type="button">HD</button><button class="preset active" data-h="1080" data-w="1920" type="button">Full HD</button><button class="preset" data-h="1440" data-w="2560" type="button">QHD</button><button class="preset" data-h="2160" data-w="3840" type="button">4K</button></div></div><div class="form-row"><div class="field"><label for="imageWidth">Largura (px)</label><input id="imageWidth" inputmode="numeric" max="100000" min="1" step="1" type="number" value="1920"/></div><div class="field"><label for="imageHeight">Altura (px)</label><input id="imageHeight" inputmode="numeric" max="100000" min="1" step="1" type="number" value="1080"/></div></div><div class="actions"><button class="btn btn-primary" id="calculateResolution" type="button">Analisar resolução</button></div><p class="field-note" id="resolutionError" role="alert"></p><div class="side-divider"></div><div class="field"><label for="paletteBase">Cor base da paleta</label><div class="color-row"><input id="paletteBase" type="color" value="#547eae"/><span class="color-code" id="paletteBaseHex">#547EAE</span></div></div><div class="info-card"><strong>O que é o aspect ratio?</strong><p>É a relação entre largura e altura. Exemplo: 1920 × 1080 corresponde a 16:9. A categoria é indicativa.</p></div></aside>
+</div>
+</div>
+</article>
+<article aria-label="Aplicação Número secreto" aria-labelledby="tile-jogo" class="app-window" data-app="jogo" hidden="" id="window-jogo" role="tabpanel" tabindex="0">
+<header class="window-bar"><div class="traffic"><span aria-hidden="true" class="close"></span><span aria-hidden="true" class="minimize"></span><span aria-hidden="true" class="maximize"></span></div><div class="window-app"><span class="window-app-mark game">#</span><div><b>Número secreto</b><small>GUESS GAME.APP</small></div></div><span class="window-badge">03 / PLAY MODE</span></header>
+<div class="window-content"><div class="module-head"><div><p class="module-eyebrow">03 — lógica &amp; diversão</p><h1>Consegues descobrir?</h1><p class="sub">Cada tentativa aproxima-te da resposta. Ou será que não?</p></div><span class="head-signet">◉ PLAY MODE</span></div>
+<div class="module-grid"><section class="game-stage"><p class="game-kicker">O número secreto está entre</p><div class="game-number" id="gameRange">1 — 100</div><div class="game-range-label" id="gameRangeLabel">O número secreto está neste intervalo</div><form class="game-form" id="guessForm" novalidate=""><input aria-label="O teu palpite" id="guessInput" inputmode="numeric" max="100" min="1" placeholder="Ex.: 42" required="" step="1" type="number"/><button class="btn" id="guessButton" type="submit">Experimentar</button></form><div aria-live="polite" class="feedback" id="gameFeedback" role="status"><strong>Pronto para jogar?</strong><p>Escolhe um número entre 1 e 100.</p></div></section>
+<aside class="inspector"><div class="inspector-top"><h2>Progresso do jogo</h2><span>STATS</span></div><div class="field"><label for="gameDifficulty">Dificuldade</label><select id="gameDifficulty"><option value="facil">Fácil · 30 tentativas</option><option value="medio">Médio · 10 tentativas</option><option value="dificil">Difícil · 10 tentativas (sem dicas)</option></select></div><div class="progress-meta"><span>Tentativas usadas</span><strong id="attemptCount">0 / 30</strong></div><div class="track"><div id="attemptProgress"></div></div><p class="history-label">Histórico</p><div aria-live="polite" class="attempts-list" id="guessHistory"><span class="muted">Ainda não jogaste.</span></div><div class="best-score"><span>O teu melhor resultado</span><strong id="bestScore">—</strong></div><div class="side-divider"></div><button class="btn btn-outline" id="restartGame" style="width:100%" type="button">↻ Começar novo jogo</button><div class="info-card" id="gameHintInfo"><strong id="gameHintTitle">Uma pista extra</strong><p id="gameHintDescription">A partir da 3.ª tentativa, recebes o intervalo atualizado. Na 6.ª, descobres se o número é par ou ímpar.</p></div></aside>
+</div>
+</div>
+</article>
+</section>
+  <footer class="site-footer"><span>© 2026 STUDIO OM · Dashboard multimédia</span><span>HTML · CSS · JavaScript · Funciona offline</span></footer>
+</main><div id="toast" role="status" aria-live="polite"></div>
+<script>
+'use strict';
+const $=(id)=>document.getElementById(id);
+const $$=(selector)=>[...document.querySelectorAll(selector)];
+const clamp=(value,low,high)=>Math.min(high,Math.max(low,value));
+const textNormal=(str)=>str.toLocaleLowerCase('pt-PT').normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+const wordPattern=/[\p{L}\p{M}\p{N}]+(?:[’'-][\p{L}\p{M}\p{N}]+)*/gu;
+let toastTimer;
+function toast(message){const element=$('toast');element.textContent=message;element.classList.add('visible');clearTimeout(toastTimer);toastTimer=setTimeout(()=>element.classList.remove('visible'),2600)}
+// Navegação em linha: só o programa escolhido aparece por baixo dos cartões.
+const availableApps = ['palavras', 'formatos', 'jogo'];
+const tiles = $$('[role="tab"]');
+function showProgram(name, scroll = true) {
+  if (!availableApps.includes(name)) return;
+  tiles.forEach(tile => {
+    const selected = tile.dataset.open === name;
+    tile.setAttribute('aria-selected', String(selected));
+    tile.tabIndex = selected ? 0 : -1;
+  });
+  for (const id of availableApps) {
+    const panel = $(`window-${id}`);
+    panel.hidden = id !== name;
+  }
+  try { history.replaceState(null, '', `#${name}`); } catch { /* Modo ficheiro local */ }
+  if (name === 'formatos') requestAnimationFrame(calculateResolution);
+  if (scroll) requestAnimationFrame(() => $(`window-${name}`).scrollIntoView({behavior:'smooth',block:'start'}));
+}
+tiles.forEach((tile, index) => {
+  tile.addEventListener('click', () => showProgram(tile.dataset.open));
+  tile.addEventListener('keydown', event => {
+    if (!['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) return;
+    event.preventDefault();
+    const next = event.key === 'Home' ? 0 : event.key === 'End' ? tiles.length - 1 :
+      (index + (event.key === 'ArrowRight' ? 1 : -1) + tiles.length) % tiles.length;
+    tiles[next].focus(); showProgram(tiles[next].dataset.open, false);
+  });
+});
+function updateClock() {
+  $('sysClock').textContent = new Intl.DateTimeFormat('pt-PT', {hour:'2-digit',minute:'2-digit'}).format(new Date());
+}
+updateClock(); setInterval(updateClock, 30000);
+window.addEventListener('hashchange', () => {
+  const app = location.hash.slice(1);
+  if (availableApps.includes(app)) showProgram(app, false);
+});
+
+    /* =======================================================
+       01 — NUVEM DE PALAVRAS
+       Normalização Unicode, contagem eficiente e distribuição
+       por espiral com grelha espacial para limitar colisões.
+       ======================================================= */
+    const dictionary = {
+      amor: ['afeto', 'carinho'], alegria: ['felicidade', 'contentamento'],
+      vida: ['existência', 'jornada'], luz: ['claridade', 'brilho'],
+      esperança: ['confiança', 'otimismo'], mundo: ['universo', 'planeta'],
+      coração: ['alma', 'sentimento'], sonho: ['desejo', 'imaginação'],
+      paz: ['serenidade', 'harmonia'], caminho: ['percurso', 'trilho'],
+      bonito: ['belo', 'encantador'], tristeza: ['melancolia', 'saudade'],
+      sofrimento: ['dor', 'aflição'], aliviar: ['suavizar', 'amenizar'],
+      fazer: ['realizar', 'construir'], criar: ['inventar', 'conceber'],
+      ideias: ['conceitos', 'pensamentos'], cor: ['tom', 'tonalidade']
+    };
+    const cloudColors = {
+      violeta: ['#5A4FD6', '#8975EB', '#3E369C', '#9C6EE1', '#5F76CE', '#BC80DE'],
+      viridis: ['#3D2678', '#345BA2', '#258E9D', '#35A985', '#8CBF68', '#4A7FA8'],
+      verde: ['#1D6E63', '#429F83', '#274F64', '#6CB7A1', '#377C75'],
+      terra: ['#8C4F4A', '#BE7854', '#7A5F88', '#D4A068', '#6F5951']
+    };
+    const canvas = $('cloudCanvas');
+    const context = canvas.getContext('2d');
+
+    // Formatos de cartaz: os píxeis exportados são iguais aos da pré-visualização.
+    const posterPresets = {
+      original: [1200, 630],
+      'a4-v': [1240, 1754],
+      'a4-h': [1754, 1240],
+      'a3-v': [1754, 2480],
+      quadrado: [1200, 1200],
+      'poster-45': [1080, 1350],
+      story: [1080, 1920],
+      panorama: [1920, 1080]
+    };
+    function setPosterDimensions(width, height) {
+      if (canvas.width !== width) canvas.width = width;
+      if (canvas.height !== height) canvas.height = height;
+      $('posterDimensions').textContent = `${width} × ${height} px`;
+      canvas.setAttribute('aria-label', `Nuvem de palavras: cartaz de ${width} por ${height} píxeis`);
+      generateCloud();
+    }
+    function applyCustomPoster() {
+      const rawWidth = $('posterWidth').value.trim();
+      const rawHeight = $('posterHeight').value.trim();
+      const width = Number(rawWidth);
+      const height = Number(rawHeight);
+      if (!/^\d+$/.test(rawWidth) || !/^\d+$/.test(rawHeight) ||
+          !Number.isSafeInteger(width) || !Number.isSafeInteger(height) ||
+          width < 320 || height < 320 || width > 4000 || height > 4000 ||
+          width * height > 8000000) {
+        $('posterError').textContent = 'Usa entre 320 e 4000 px por lado, até 8 milhões de píxeis no total.';
+        return;
+      }
+      $('posterError').textContent = '';
+      setPosterDimensions(width, height);
+      $('posterFormatNote').textContent = `Formato personalizado: ${width} × ${height} px. O PNG terá estas dimensões.`;
+      toast('Formato personalizado aplicado.');
+    }
+    $('posterFormat').addEventListener('change', () => {
+      const format = $('posterFormat').value;
+      const custom = format === 'personalizado';
+      $('customPosterControls').hidden = !custom;
+      $('posterError').textContent = '';
+      if (custom) {
+        $('posterWidth').value = canvas.width;
+        $('posterHeight').value = canvas.height;
+        $('posterFormatNote').textContent = 'Define a largura e a altura do cartaz em píxeis e aplica.';
+        return;
+      }
+      const [width, height] = posterPresets[format];
+      $('posterFormatNote').textContent = `Formato selecionado: ${width} × ${height} px. O PNG seguirá estas dimensões.${format.startsWith('a') ? ' A4/A3: aproximadamente 150 ppp.' : ''}`;
+      setPosterDimensions(width, height);
+    });
+    $('applyCustomPoster').addEventListener('click', applyCustomPoster);
+    [$('posterWidth'), $('posterHeight')].forEach(input => input.addEventListener('keydown', event => {
+      if (event.key === 'Enter') { event.preventDefault(); applyCustomPoster(); }
+    }));
+
+    function extractWords() {
+      const text = $('poemText').value;
+      const ignored = new Set($('stopWords').value.split(',').map((item) => textNormal(item.trim())).filter(Boolean));
+      const occurrences = text.match(wordPattern) || [];
+      const frequencies = new Map();
+      for (const original of occurrences) {
+        const key = textNormal(original);
+        if (ignored.has(key)) continue;
+        if (!frequencies.has(key)) frequencies.set(key, {word: original.toLocaleLowerCase('pt-PT'), count: 0});
+        frequencies.get(key).count++;
+      }
+      const ranked = [...frequencies.values()].sort((a, b) => b.count - a.count || a.word.localeCompare(b.word, 'pt'));
+      const selected = Number($('maxWords').value) || 100;
+      $('textTotal').textContent = occurrences.length.toLocaleString('pt-PT');
+      $('textUnique').textContent = frequencies.size.toLocaleString('pt-PT');
+      return ranked.slice(0, selected);
+    }
+
+    function placeCloudWords(words, scale) {
+      const W = canvas.width, H = canvas.height;
+      const tile = Math.max(30, Math.round(Math.min(W, H) / 20));
+      const grid = new Map();
+      const placed = [];
+      const highest = words[0].count;
+      const lowest = words[words.length - 1].count;
+      const totalChars = words.reduce((sum, item) => sum + Math.max(item.word.length, 4), 0);
+      const base = clamp(Math.sqrt((W * H * .30) / (totalChars * .58)), 20, Math.min(W, H) * .17);
+      const key = (x, y) => `${x},${y}`;
+      const sectors = (box) => {
+        const list = [];
+        for (let gx = Math.floor(box.l / tile); gx <= Math.floor(box.r / tile); gx++) {
+          for (let gy = Math.floor(box.t / tile); gy <= Math.floor(box.b / tile); gy++) list.push(key(gx, gy));
+        }
+        return list;
+      };
+      for (let index = 0; index < words.length; index++) {
+        const {word, count} = words[index];
+        const weight = highest === lowest ? .45 : (count - lowest) / (highest - lowest);
+        const originalSize = clamp(Math.round(base * (.76 + weight * .60) * scale), 11, Math.max(25, Math.round(Math.min(W, H) * .17)));
+        let chosen = null;
+        for (let size = originalSize; size >= Math.max(10, originalSize * .73) && !chosen; size -= 3) {
+          context.font = `800 ${size}px Inter, system-ui, sans-serif`;
+          const width = context.measureText(word).width;
+          const height = size * 1.15;
+          if (width > W - 35) continue;
+          for (let step = 0; step < 1050; step++) {
+            const angle = step * 2.399963229728653;
+            const radius = Math.sqrt(step);
+            const x = W / 2 + Math.cos(angle) * radius * (16.7 * W / 1200);
+            const y = H / 2 + Math.sin(angle) * radius * (9.5 * H / 630);
+            const box = {l: x - width / 2 - 7, r: x + width / 2 + 7, t: y - height / 2 - 5, b: y + height / 2 + 5};
+            if (box.l < 18 || box.r > W - 18 || box.t < 18 || box.b > H - 18) continue;
+            const cells = sectors(box);
+            const neighbors = new Set(cells.flatMap((cell) => grid.get(cell) || []));
+            const overlaps = [...neighbors].some((other) => !(box.r < other.l || box.l > other.r || box.b < other.t || box.t > other.b));
+            if (overlaps) continue;
+            chosen = {word, index, size, x, y};
+            for (const cell of cells) {
+              if (!grid.has(cell)) grid.set(cell, []);
+              grid.get(cell).push(box);
+            }
+            break;
+          }
+        }
+        if (chosen) placed.push(chosen);
+      }
+      return placed;
+    }
+
+    function generateCloud() {
+      if (!context) return;
+      const W = canvas.width, H = canvas.height;
+      const background = $('cloudBg').value;
+      $('cloudBgHex').textContent = background.toUpperCase();
+      context.clearRect(0, 0, W, H);
+      context.fillStyle = background;
+      context.fillRect(0, 0, W, H);
+      const words = extractWords();
+      if (!words.length) {
+        context.textAlign = 'center';
+        context.textBaseline = 'middle';
+        context.font = '600 30px Inter, system-ui, sans-serif';
+        context.fillStyle = '#8b8fb2';
+        context.fillText('Escreve um texto para começar', W / 2, H / 2);
+        $('cloudCount').textContent = '0 palavras';
+        return;
+      }
+      let best = [];
+      // A primeira distribuição com mais palavras tem prioridade;
+      // caso necessário, reduz-se a escala de modo controlado.
+      for (const scale of [1, .84, .70, .57, .46, .35]) {
+        const candidate = placeCloudWords(words, scale);
+        if (candidate.length > best.length) best = candidate;
+        if (candidate.length === words.length) break;
+      }
+      const colors = cloudColors[$('cloudPalette').value] || cloudColors.violeta;
+      context.textAlign = 'center';
+      context.textBaseline = 'middle';
+      for (const item of best) {
+        context.fillStyle = colors[item.index % colors.length];
+        context.font = `800 ${item.size}px Inter, system-ui, sans-serif`;
+        context.fillText(item.word, item.x, item.y);
+      }
+      $('cloudCount').textContent = best.length === words.length
+        ? `${best.length} ${best.length === 1 ? 'palavra' : 'palavras'} em destaque`
+        : `${best.length} de ${words.length} palavras visíveis`;
+    }
+
+    function renderSynonyms() {
+      const holder = $('synonymList');
+      holder.replaceChildren();
+      const normalizedWords = new Set(($('poemText').value.match(wordPattern) || []).map(textNormal));
+      let added = 0;
+      for (const [source, alternatives] of Object.entries(dictionary)) {
+        if (!normalizedWords.has(source)) continue;
+        for (const synonym of alternatives) {
+          if (added === 6) break;
+          const button = document.createElement('button');
+          button.className = 'synonym';
+          button.type = 'button';
+          button.textContent = `${source} → ${synonym}`;
+          button.addEventListener('click', () => {
+            const sourceText = $('poemText').value;
+            const matches = [...sourceText.matchAll(wordPattern)];
+            const found = matches.find((item) => textNormal(item[0]) === source);
+            if (!found) return;
+            $('poemText').value = sourceText.slice(0, found.index) + synonym + sourceText.slice(found.index + found[0].length);
+            renderSynonyms();
+            generateCloud();
+            toast('Palavra substituída com sucesso.');
+          });
+          holder.appendChild(button);
+          added++;
+        }
+        if (added === 6) break;
+      }
+      if (!added) {
+        const message = document.createElement('span');
+        message.className = 'helper-text';
+        message.textContent = 'Sem sugestões para este texto. Experimenta palavras como amor, luz ou esperança.';
+        holder.appendChild(message);
+      }
+    }
+    $('generateCloud').addEventListener('click', () => { generateCloud(); renderSynonyms(); toast('Nuvem atualizada.'); });
+    $('poemText').addEventListener('input', renderSynonyms);
+    $('cloudBg').addEventListener('input', () => { $('cloudBgHex').textContent = $('cloudBg').value.toUpperCase(); });
+    $('downloadCloud').addEventListener('click', () => {
+      generateCloud();
+      canvas.toBlob((blob) => {
+        if (!blob) { toast('Não foi possível criar o ficheiro PNG.'); return; }
+        const url = URL.createObjectURL(blob);
+        const anchor = document.createElement('a');
+        anchor.href = url;
+        anchor.download = `studio-om-nuvem-${canvas.width}x${canvas.height}.png`;
+        anchor.click();
+        setTimeout(() => URL.revokeObjectURL(url), 2000);
+        toast('PNG criado com sucesso.');
+      }, 'image/png');
+    });
+
+    /* =======================================================
+       02 — RESOLUÇÕES E CORES
+       Validação estrita, proporção exata via MDC e HSL.
+       ======================================================= */
+    function gcd(a, b) { while (b) [a, b] = [b, a % b]; return a; }
+    function resolutionCategory(w, h) {
+      const large = Math.max(w, h), small = Math.min(w, h);
+      if (large >= 7680 && small >= 4320) return '8K UHD';
+      if (large >= 3840 && small >= 2160) return '4K UHD';
+      if (large >= 2560 && small >= 1440) return 'QHD';
+      if (large >= 1920 && small >= 1080) return 'Full HD';
+      if (large >= 1280 && small >= 720) return 'HD';
+      return 'Abaixo de HD';
+    }
+    function calculateResolution() {
+      const w = Number($('imageWidth').value), h = Number($('imageHeight').value);
+      const valid = [$('imageWidth').value, $('imageHeight').value].every((value) => /^\d+$/.test(value.trim())) && Number.isSafeInteger(w) && Number.isSafeInteger(h) && w >= 1 && h >= 1 && w <= 100000 && h <= 100000;
+      if (!valid) { $('resolutionError').textContent = 'Introduz valores inteiros entre 1 e 100 000 píxeis.'; return; }
+      $('resolutionError').textContent = '';
+      const d = gcd(w, h);
+      const ratio = `${w / d}:${h / d}`;
+      const category = resolutionCategory(w, h);
+      const direction = w === h ? 'Quadrado' : w > h ? 'Horizontal' : 'Vertical';
+      $('resolutionClass').textContent = category;
+      $('resolutionRatio').textContent = ratio;
+      $('resolutionPixels').textContent = `${(w * h / 1e6).toLocaleString('pt-PT', {maximumFractionDigits: 2})} MP`;
+      $('resolutionOrientation').textContent = direction;
+      $('screenName').textContent = category;
+      $('screenDimensions').textContent = `${w.toLocaleString('pt-PT')} × ${h.toLocaleString('pt-PT')} px`;
+      const shape = $('screenShape');
+      const shapeContainer = $('screenShape').parentElement;
+      const availableWidth = Math.min(490, Math.max(120, (shapeContainer.clientWidth || 530) - 36));
+      const factor = Math.min(availableWidth / w, 284 / h);
+      const previewWidth = w * factor, previewHeight = h * factor;
+      shape.style.width = `${previewWidth}px`;
+      shape.style.height = `${previewHeight}px`;
+      shape.classList.toggle('tiny', previewWidth < 135 || previewHeight < 68);
+      $$('.preset').forEach((button) => button.classList.toggle('active', Number(button.dataset.w) === w && Number(button.dataset.h) === h));
+    }
+    $('calculateResolution').addEventListener('click', calculateResolution);
+    [$('imageWidth'), $('imageHeight')].forEach((input) => input.addEventListener('keydown', (event) => { if (event.key === 'Enter') calculateResolution(); }));
+    $$('.preset').forEach((button) => button.addEventListener('click', () => { $('imageWidth').value = button.dataset.w; $('imageHeight').value = button.dataset.h; calculateResolution(); }));
+
+    function hexToHsl(hex) {
+      const rgb = [1, 3, 5].map((start) => parseInt(hex.slice(start, start + 2), 16) / 255);
+      const max = Math.max(...rgb), min = Math.min(...rgb), delta = max - min;
+      let hue = 0;
+      const light = (max + min) / 2;
+      let saturation = delta === 0 ? 0 : delta / (1 - Math.abs(2 * light - 1));
+      if (delta) {
+        switch (max) {
+          case rgb[0]: hue = ((rgb[1] - rgb[2]) / delta) % 6; break;
+          case rgb[1]: hue = (rgb[2] - rgb[0]) / delta + 2; break;
+          default: hue = (rgb[0] - rgb[1]) / delta + 4;
+        }
+        hue = (hue * 60 + 360) % 360;
+      }
+      return [hue, saturation * 100, light * 100];
+    }
+    function hslToHex(h, s, l) {
+      const saturation = clamp(s, 0, 100) / 100, lightness = clamp(l, 0, 100) / 100;
+      const a = saturation * Math.min(lightness, 1 - lightness);
+      const channel = (n) => {
+        const k = (n + ((h % 360 + 360) % 360) / 30) % 12;
+        return Math.round(255 * (lightness - a * Math.max(-1, Math.min(k - 3, 9 - k, 1)))).toString(16).padStart(2, '0');
+      };
+      return `#${channel(0)}${channel(8)}${channel(4)}`.toUpperCase();
+    }
+    async function copyHex(hex) {
+      try {
+        if (navigator.clipboard && window.isSecureContext) await navigator.clipboard.writeText(hex);
+        else {
+          const temp = document.createElement('textarea');
+          temp.value = hex;
+          temp.style.cssText = 'position:fixed;left:-9999px';
+          document.body.appendChild(temp);
+          temp.select();
+          const copied = document.execCommand('copy');
+          temp.remove();
+          if (!copied) throw new Error('cópia não suportada');
+        }
+        toast(`${hex} copiado.`);
+      } catch { toast(`Copia manualmente: ${hex}`); }
+    }
+    // A cor selecionada pode vir da paleta, do seletor livre, do HEX ou do conta-gotas.
+    let selectedColor = '#547EAE';
+    function selectColor(hex) {
+      const normalized = hex.toUpperCase();
+      if (!/^#[0-9A-F]{6}$/.test(normalized)) return;
+      selectedColor = normalized;
+      const rgb = [1,3,5].map(index => parseInt(normalized.slice(index,index + 2),16));
+      const [h,s,l] = hexToHsl(normalized);
+      $('selectedHex').textContent = normalized;
+      $('selectedRgb').textContent = `rgb(${rgb.join(', ')})`;
+      $('selectedHsl').textContent = `hsl(${Math.round(h)}, ${Math.round(s)}%, ${Math.round(l)}%)`;
+      $('selectedColorPreview').style.backgroundColor = normalized;
+      $('selectedColorPreview').style.color = l > 52 ? '#1f2742' : '#fff';
+      $('colorInspectorPicker').value = normalized.toLowerCase();
+      $('colorHexInput').value = normalized;
+      $$('.swatch').forEach(button => {
+        button.setAttribute('aria-pressed', String(button.dataset.hex === normalized));
+      });
+    }
+    function generatePalette() {
+      const base = $('paletteBase').value.toUpperCase();
+      $('paletteBaseHex').textContent = base;
+      const [h, s, l] = hexToHsl(base);
+      const shades = [
+        hslToHex(h - 18, s * .75, clamp(l + 30, 14, 92)),
+        hslToHex(h - 7, s * .85, clamp(l + 15, 12, 85)),
+        base,
+        hslToHex(h + 8, s * 1.05, clamp(l - 14, 9, 80)),
+        hslToHex(h + 26, s * .80, clamp(l - 25, 8, 70))
+      ];
+      const parent = $('paletteCells');
+      parent.replaceChildren();
+      for (const hex of shades) {
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'swatch';
+        button.dataset.hex = hex;
+        button.title = `Selecionar ${hex}`;
+        button.setAttribute('aria-label', `Ver código da cor ${hex}`);
+        button.setAttribute('aria-pressed', 'false');
+        const color = document.createElement('span');
+        color.className = 'swatch-color';
+        color.style.backgroundColor = hex;
+        const label = document.createElement('span');
+        label.className = 'swatch-label';
+        label.textContent = hex;
+        button.append(color, label);
+        button.addEventListener('click', () => selectColor(hex));
+        parent.appendChild(button);
+      }
+      selectColor(base);
+    }
+    $('paletteBase').addEventListener('input', generatePalette);
+    $('colorInspectorPicker').addEventListener('input', event => selectColor(event.target.value));
+    $('colorHexInput').addEventListener('input', event => {
+      const raw = event.target.value.trim();
+      const candidate = `#${raw.replace(/^#/, '')}`;
+      if (/^#[0-9a-fA-F]{6}$/.test(candidate)) selectColor(candidate);
+    });
+    $('colorHexInput').addEventListener('blur', event => {
+      if (!/^#[0-9a-fA-F]{6}$/.test('#' + event.target.value.trim().replace(/^#/, ''))) {
+        event.target.value = selectedColor;
+        toast('Usa um código HEX válido, por exemplo #547EAE.');
+      }
+    });
+    $$('.color-value-button').forEach(button => {
+      button.addEventListener('click', () => {
+        const ids = {hex:'selectedHex',rgb:'selectedRgb',hsl:'selectedHsl'};
+        copyHex($(ids[button.dataset.copyFormat]).textContent);
+      });
+    });
+    $('useSelectedAsBase').addEventListener('click', () => {
+      $('paletteBase').value = selectedColor;
+      generatePalette();
+      toast('Nova paleta criada a partir da cor selecionada.');
+    });
+    if ('EyeDropper' in window && window.isSecureContext) {
+      const button = $('screenEyedropper');
+      button.hidden = false;
+      button.addEventListener('click', async () => {
+        try {
+          const {sRGBHex} = await new EyeDropper().open();
+          selectColor(sRGBHex);
+          toast('Cor capturada do ecrã.');
+        } catch (error) {
+          if (error.name !== 'AbortError') toast('Não foi possível capturar a cor.');
+        }
+      });
+    }
+
+    /* =======================================================
+       03 — JOGO DO NÚMERO SECRETO
+       Fácil: 30 tentativas, com dicas.
+       Médio: 10 tentativas, com dicas.
+       Difícil: 10 tentativas, sem dicas nem intervalo reduzido.
+       ======================================================= */
+    const gameModes = {
+      facil: {max: 30, hints: true},
+      medio: {max: 10, hints: true},
+      dificil: {max: 10, hints: false}
+    };
+    let game;
+    const bestScores = (() => {
+      try { return JSON.parse(localStorage.getItem('atelier-best-scores') || '{}') || {}; }
+      catch { return {}; }
+    })();
+
+    function randomNumber() {
+      if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+        const buffer = new Uint32Array(1);
+        const ceiling = Math.floor(0x100000000 / 100) * 100;
+        do { crypto.getRandomValues(buffer); } while (buffer[0] >= ceiling);
+        return (buffer[0] % 100) + 1;
+      }
+      return Math.floor(Math.random() * 100) + 1;
+    }
+
+    function showGameMessage(title, message, state = '') {
+      const container = $('gameFeedback');
+      container.className = `feedback${state ? ` ${state}` : ''}`;
+      const strong = document.createElement('strong'); strong.textContent = title;
+      const paragraph = document.createElement('p'); paragraph.textContent = message;
+      container.replaceChildren(strong, paragraph);
+    }
+
+    function getBestScore() {
+      // Conservar o recorde do antigo modo Fácil (chave "30").
+      // Médio e Difícil possuem recordes distintos, mesmo tendo 10 tentativas.
+      const current = bestScores[game.mode];
+      const previousEasy = game.mode === 'facil' ? bestScores[30] : undefined;
+      const scores = [current, previousEasy].filter(value => Number.isInteger(value) && value > 0);
+      return scores.length ? Math.min(...scores) : null;
+    }
+
+    function updateGame() {
+      $('attemptCount').textContent = `${game.guesses.length} / ${game.max}`;
+      $('attemptProgress').style.width = `${100 * game.guesses.length / game.max}%`;
+      $('gameRange').textContent = `${game.min} — ${game.maxPossible}`;
+      const best = getBestScore();
+      $('bestScore').textContent = best ? `${best} tentativa(s)` : '—';
+      const list = $('guessHistory');
+      list.replaceChildren();
+      if (!game.guesses.length) {
+        const empty = document.createElement('span');
+        empty.className = 'muted';
+        empty.textContent = 'Ainda não jogaste.';
+        list.appendChild(empty);
+      } else {
+        for (const guess of game.guesses) {
+          const tag = document.createElement('span');
+          tag.className = 'attempt-tag';
+          tag.textContent = guess;
+          list.appendChild(tag);
+        }
+      }
+      $('guessInput').disabled = game.finished;
+      $('guessButton').disabled = game.finished;
+    }
+
+    function newGame() {
+      const mode = $('gameDifficulty').value;
+      const settings = gameModes[mode] || gameModes.facil;
+      game = {
+        mode, secret: randomNumber(), max: settings.max, hints: settings.hints,
+        guesses: [], min: 1, maxPossible: 100, finished: false
+      };
+      $('guessInput').value = '';
+      $('gameRangeLabel').textContent = settings.hints
+        ? 'O número secreto está neste intervalo'
+        : 'Sem dicas: tens 10 tentativas para acertar.';
+      $('gameHintTitle').textContent = settings.hints ? 'Uma pista extra' : 'Modo difícil — sem dicas';
+      $('gameHintDescription').textContent = settings.hints
+        ? 'Após cada tentativa, sabes se o número é maior ou menor. A partir da 3.ª, recebes o intervalo atualizado e, na 6.ª, a paridade.'
+        : 'Tens apenas 10 tentativas. Não são dadas pistas de maior/menor, intervalos mais pequenos ou paridade.';
+      showGameMessage('Pronto para jogar?', settings.hints
+        ? 'Escolhe um número entre 1 e 100 para começares.'
+        : 'Experimenta números entre 1 e 100. Só saberás se acertaste ou não.');
+      updateGame();
+    }
+
+    function guessNumber(rawValue) {
+      if (game.finished) return;
+      const raw = String(rawValue).trim();
+      const guess = /^\d+$/.test(raw) ? Number(raw) : NaN;
+      if (!Number.isSafeInteger(guess) || guess < 1 || guess > 100) {
+        showGameMessage('Número inválido', 'Introduz um número inteiro entre 1 e 100.', 'error');
+        return;
+      }
+      if (game.guesses.includes(guess)) {
+        showGameMessage('Número repetido', 'Esse número já foi utilizado. Experimenta outro.', 'error');
+        return;
+      }
+      game.guesses.push(guess);
+      const count = game.guesses.length;
+      const remaining = game.max - count;
+
+      if (guess === game.secret) {
+        game.finished = true;
+        game.min = guess;
+        game.maxPossible = guess;
+        $('gameRangeLabel').textContent = 'Número secreto descoberto!';
+        showGameMessage('Fantástico! Acertaste!',
+          `O número era ${guess}. Conseguiste em ${count} tentativa(s).`, 'success');
+        const previous = getBestScore();
+        if (!previous || count < previous) {
+          bestScores[game.mode] = count;
+          try { localStorage.setItem('atelier-best-scores', JSON.stringify(bestScores)); }
+          catch { /* armazenamento opcional */ }
+        }
+      } else if (remaining === 0) {
+        game.finished = true;
+        $('gameRangeLabel').textContent = 'Fim do jogo';
+        showGameMessage('Acabaram as tentativas',
+          `O número era ${game.secret}. Inicia uma nova partida para tentares novamente.`, 'error');
+      } else if (!game.hints) {
+        // Difícil: NUNCA atualizar min/max nem revelar maior, menor ou paridade.
+        showGameMessage('Ainda não acertaste',
+          `Tenta outro número. Restam ${remaining} tentativa(s).`);
+      } else {
+        // Fácil e Médio: preservam as dicas do jogo original.
+        if (guess < game.secret) game.min = Math.max(game.min, guess + 1);
+        else game.maxPossible = Math.min(game.maxPossible, guess - 1);
+        let hint = guess < game.secret ? 'O número secreto é maior.' : 'O número secreto é menor.';
+        if (count >= 3) hint += ` Está entre ${game.min} e ${game.maxPossible}.`;
+        if (count >= 6) hint += ` É ${game.secret % 2 === 0 ? 'par' : 'ímpar'}.`;
+        showGameMessage('Boa tentativa!', `${hint} Restam ${remaining} tentativa(s).`);
+      }
+
+      $('guessInput').value = '';
+      updateGame();
+      if (!game.finished) $('guessInput').focus();
+    }
+
+    $('guessForm').addEventListener('submit', (event) => {
+      event.preventDefault();
+      guessNumber($('guessInput').value);
+    });
+    $('restartGame').addEventListener('click', () => { newGame(); $('guessInput').focus(); });
+    $('gameDifficulty').addEventListener('change', newGame);
+
+    // Inicialização central. Qualquer módulo funciona sem acesso à internet.
+    newGame();
+    for (const initialize of [renderSynonyms, generateCloud, calculateResolution, generatePalette]) {
+      try { initialize(); } catch (error) { console.error('Erro ao iniciar módulo:', error); }
+    }
+
+window.addEventListener('resize', calculateResolution);
+const initialProgram = availableApps.includes(location.hash.slice(1)) ? location.hash.slice(1) : "palavras";
+showProgram(initialProgram, false);
+</script>
+</body>
+</html>
