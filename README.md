@@ -162,8 +162,6 @@ Inicialmente, experimentei diferentes designs, com o objetivo de criar uma inter
 
 Depois de experimentar várias versões, escolhi uma estrutura simples, com fundo azul-escuro, cartões coloridos e áreas de trabalho brancas.
 
-Como referência visual e funcional, também considerei a plataforma **Adobe Express** (https://www.adobe.com/express), especialmente pela forma como reúne várias ferramentas criativas numa única interface.
-
 
 ## 4. Estrutura de Ficheiros do Repositório
 
@@ -171,6 +169,7 @@ Como referência visual e funcional, também considerei a plataforma **Adobe Exp
 
 - **index.html:** contém a estrutura do dashboard, os estilos e todas as funcionalidades das três aplicações.
 - **README.md:** contém a apresentação, a descrição, o registo da utilização da IA e a reflexão sobre o projeto.
+- **programas_dashboard.ipynb:** contém o código dos programas presentes na dashboard em python
 
 Também não foi necessário criar um ficheiro `style.css` separado, uma vez que os estilos estão integrados no `index.html`.
 
@@ -178,7 +177,6 @@ Caso sejam adicionadas imagens ou capturas de ecrã ao repositório, estas poder
 
 Para executar a aplicação, basta abrir o ficheiro `index.html` num navegador, como o Google Chrome, Microsoft Edge ou Firefox.
 
----
 
 ## 5. Reflexão Crítica e Aprendizagem
 
