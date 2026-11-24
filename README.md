@@ -13,9 +13,9 @@
 
 **Turma:** 12ºB
 
-**Link da Aplicação Web:** [Link do GitHub Pages]
+**Link da Aplicação Web:** https://patrickcoelho697.github.io/Projeto_Multimedia_T1/
 
-**Proposta Escolhida:** [Proposta 1 ou Proposta 2 — confirmar com o enunciado]
+**Proposta Escolhida:** Proposta 1
 
 
 ## 1. Visão Geral do Projeto
