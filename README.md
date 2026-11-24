@@ -28,8 +28,6 @@ O utilizador pode selecionar cada programa através de cartões interativos, sen
 
 ## 2. Estrutura do Código e Funcionalidades Integradas
 
-Para desenvolver este projeto, parti de três exercícios de programação em Python, que foram adaptados para HTML, CSS e JavaScript. A lógica dos programas foi recriada em JavaScript, tendo sido acrescentadas novas funcionalidades com o apoio da IA.
-
 ### Programa 1 — Gerador de Nuvens de Palavras
 
 Este programa permite transformar um texto ou poema numa nuvem de palavras, destacando as palavras mais frequentes.
@@ -84,7 +82,6 @@ O projeto foi desenvolvido com:
 
 - **HTML5:** estrutura e organização das aplicações.
 - **CSS3:** design, cores, botões, cartões, espaçamentos e adaptação a diferentes ecrãs.
-- **JavaScript:** funcionamento dos programas, cálculos, validações e interação com o utilizador.
 
 Toda a aplicação funciona no navegador, sem necessidade de instalar bibliotecas externas.
 
@@ -99,7 +96,7 @@ Os prompts seguintes são exemplos reconstituídos dos pedidos feitos durante o 
 
 ### 3.1. Prompt para Conversão Web/HTML
 
-> Tenho três exercícios de Python: um gerador de nuvens de palavras, um programa que analisa formatos de imagem e um jogo do número secreto. Quero transformar estes exercícios num dashboard web utilizando HTML, CSS e JavaScript. Junta os três programas numa única aplicação, com um design moderno e funcionalidades interativas.
+> Tenho três exercícios de Python: um gerador de nuvens de palavras, um programa que analisa formatos de imagem e um jogo do número secreto. Quero transformar estes exercícios num dashboard web utilizando HTML e CSS. Junta os três programas numa única aplicação, com um design moderno e funcionalidades interativas.
 
 Este pedido serviu como ponto de partida para transformar os exercícios numa aplicação web.
 
@@ -128,15 +125,9 @@ Este pedido serviu como ponto de partida para transformar os exercícios numa ap
 ### 3.3. Dificuldades e Erros Corrigidos com a IA
 
 Ao longo do desenvolvimento surgiram algumas dificuldades, principalmente na organização dos três programas dentro da mesma página.
-
-Uma das primeiras dificuldades foi adaptar a lógica dos exercícios para JavaScript e garantir que todas as ferramentas funcionavam corretamente.
-
 No gerador de nuvens de palavras, foi necessário melhorar a distribuição das palavras, pois algumas podiam ficar demasiado próximas ou sobrepostas. Também foi preciso adaptar a nuvem aos diferentes formatos de cartaz.
-
 No jogo do número secreto, tive de ajustar as condições dos níveis de dificuldade para garantir que o modo Difícil não apresentava dicas ao jogador.
-
 Outro desafio foi a adaptação do layout aos diferentes tamanhos de ecrã, principalmente para evitar que alguns elementos ficassem demasiado grandes ou desorganizados.
-
 Com o apoio da IA, fui revendo o código, corrigindo os problemas encontrados e melhorando progressivamente o funcionamento das ferramentas.
 
 ### 3.4. Otimização do Layout e Design
@@ -176,14 +167,10 @@ Como referência visual e funcional, também considerei a plataforma **Adobe Exp
 
 ## 4. Estrutura de Ficheiros do Repositório
 
-A estrutura do projeto é simples, pois toda a aplicação está desenvolvida num único ficheiro HTML, que inclui os estilos CSS e o código JavaScript.
-
 **Descrição dos ficheiros:**
 
 - **index.html:** contém a estrutura do dashboard, os estilos e todas as funcionalidades das três aplicações.
 - **README.md:** contém a apresentação, a descrição, o registo da utilização da IA e a reflexão sobre o projeto.
-
-Não foi necessário utilizar um ficheiro `app.py`, porque o projeto funciona diretamente em JavaScript e não utiliza Streamlit.
 
 Também não foi necessário criar um ficheiro `style.css` separado, uma vez que os estilos estão integrados no `index.html`.
 
@@ -207,6 +194,6 @@ A utilização da Inteligência Artificial ajudou-me bastante, principalmente po
 
 No entanto, também percebi que não basta pedir código à IA e utilizá-lo imediatamente. É importante testar, verificar se tudo funciona corretamente e explicar de forma clara o que se pretende alterar.
 
-Com este trabalho aprendi mais sobre a utilização de HTML, CSS e JavaScript em conjunto, sobre a organização de uma aplicação web e sobre a importância de melhorar continuamente um projeto até atingir o resultado pretendido.
+Com este trabalho aprendi mais sobre a utilização de HTML e CSS em conjunto, sobre a organização de uma aplicação web e sobre a importância de melhorar continuamente um projeto até atingir o resultado pretendido.
 
 Considero que o resultado final corresponde ao objetivo inicial: criar um dashboard que reúne diferentes ferramentas multimédia de forma funcional, organizada e com uma identidade visual própria.
