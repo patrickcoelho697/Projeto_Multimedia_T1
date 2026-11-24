@@ -9,15 +9,14 @@
 
 **Ano Letivo:** 2026/2027
 
-**Autor:** [O teu nome]
+**Autor:** Patrick Coelho
 
-**Turma:** [A tua turma]
+**Turma:** 12ºB
 
 **Link da Aplicação Web:** [Link do GitHub Pages]
 
 **Proposta Escolhida:** [Proposta 1 ou Proposta 2 — confirmar com o enunciado]
 
----
 
 ## 1. Visão Geral do Projeto
 
@@ -89,7 +88,6 @@ O projeto foi desenvolvido com:
 
 Toda a aplicação funciona no navegador, sem necessidade de instalar bibliotecas externas.
 
----
 
 ## 3. Registo de Utilização da Inteligência Artificial
 
@@ -175,22 +173,10 @@ Depois de experimentar várias versões, escolhi uma estrutura simples, com fund
 
 Como referência visual e funcional, também considerei a plataforma **Adobe Express** (https://www.adobe.com/express), especialmente pela forma como reúne várias ferramentas criativas numa única interface.
 
----
 
 ## 4. Estrutura de Ficheiros do Repositório
 
 A estrutura do projeto é simples, pois toda a aplicação está desenvolvida num único ficheiro HTML, que inclui os estilos CSS e o código JavaScript.
-
-```text
-STUDIO-OM/
-│
-├── index.html
-│   └── Aplicação principal
-│       (HTML, CSS e JavaScript)
-│
-└── README.md
-    └── Documentação do projeto
-```
 
 **Descrição dos ficheiros:**
 
