@@ -14,6 +14,7 @@
 **Turma:** 12ºB
 
 **Link da Aplicação Web:** http://127.0.0.1:3000/index.html?vscode-livepreview=true#palavras
+
 **Proposta Escolhida:** Proposta 1
 
 
