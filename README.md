@@ -13,7 +13,7 @@
 
 **Turma:** 12ºB
 
-**Link da Aplicação Web:** https://patrickcoelho697.github.io/Projeto_Multimedia_T1/
+**Link da Aplicação Web:** [https://patrickcoelho697.github.io/Projeto_Multimedia_T1/](http://127.0.0.1:3000/index.html?vscode-livepreview=true#palavras)
 
 **Proposta Escolhida:** Proposta 1
 
