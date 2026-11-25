@@ -136,27 +136,19 @@ A parte visual foi uma das áreas em que mais utilizei a Inteligência Artificia
 
 Inicialmente, experimentei diferentes designs, com o objetivo de criar uma interface moderna e organizada.
 
-**Prompt 1 — Experimentação de designs**
-
-> Quero que experimentes diferentes estilos e estruturas para o meu dashboard. Não quero apenas mudar as cores, quero ver ideias diferentes de organização, navegação, cartões e apresentação das ferramentas.
-
-**Prompt 2 — Interface inspirada num sistema operativo**
+**Prompt 1 — Interface inspirada num sistema operativo**
 
 > Experimenta criar uma interface semelhante a um pequeno sistema operativo, com três aplicações independentes, ícones coloridos e janelas com um aspeto moderno.
 
-**Prompt 3 — Adaptação para computador**
+**Prompt 2 — Adaptação para computador**
 
 > Gosto do estilo apresentado, mas quero uma estrutura mais adequada ao computador. Coloca os três programas em cartões na parte superior e faz com que, ao clicar num deles, o programa apareça por baixo. Não quero janelas flutuantes.
 
-**Prompt 4 — Melhorias visuais**
+**Prompt 3 — Melhorias visuais**
 
 > Mantém o fundo azul-escuro, mas melhora os cartões, as fontes, os botões, as margens e os espaçamentos. Quero um aspeto mais profissional e uniforme.
 
-**Prompt 5 — Personalização da identidade**
-
-> Altera o nome da aplicação para STUDIO OM e utiliza a designação Dashboard Oficina Multimédia. Retira também as setas diagonais dos botões dos programas.
-
-**Prompt 6 — Design do jogo**
+**Prompt 4 — Design do jogo**
 
 > Experimenta outro design para o jogo do número secreto, mas não mudes a estrutura nem a forma de jogar. Quero apenas melhorar o aspeto visual, com cores mais harmoniosas, botões modernos e uma apresentação mais cuidada.
 
