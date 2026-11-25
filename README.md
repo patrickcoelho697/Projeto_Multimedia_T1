@@ -96,7 +96,7 @@ Os prompts seguintes são exemplos reconstituídos dos pedidos feitos durante o 
 
 ### 3.1. Prompt para Conversão Web/HTML
 
-> Tenho três exercícios de Python: um gerador de nuvens de palavras, um programa que analisa formatos de imagem e um jogo do número secreto. Quero transformar estes exercícios num dashboard web utilizando HTML e CSS. Junta os três programas numa única aplicação, com um design moderno e funcionalidades interativas.
+Tenho três exercícios de Python: um gerador de nuvens de palavras, um programa que analisa formatos de imagem e um jogo do número secreto. Quero transformar estes exercícios num dashboard web utilizando HTML e CSS. Junta os três programas numa única aplicação, com um design moderno e funcionalidades interativas.
 
 Este pedido serviu como ponto de partida para transformar os exercícios numa aplicação web.
 
@@ -104,23 +104,23 @@ Este pedido serviu como ponto de partida para transformar os exercícios numa ap
 
 **Prompt 1 — Melhorar a nuvem de palavras**
 
-> Quero melhorar o gerador de nuvens de palavras. Acrescenta opções para personalizar as cores, escolher as palavras a ignorar, alterar a quantidade de palavras apresentadas e guardar o resultado como imagem PNG.
+Quero melhorar o gerador de nuvens de palavras. Acrescenta opções para personalizar as cores, escolher as palavras a ignorar, alterar a quantidade de palavras apresentadas e guardar o resultado como imagem PNG.
 
 **Prompt 2 — Formatos de cartaz**
 
-> No gerador de nuvens de palavras, acrescenta a possibilidade de escolher o formato do cartaz. Quero opções como A4 vertical, A4 horizontal, A3, quadrado e formatos personalizados. A nuvem deve adaptar-se automaticamente às dimensões escolhidas.
+No gerador de nuvens de palavras, acrescenta a possibilidade de escolher o formato do cartaz. Quero opções como A4 vertical, A4 horizontal, A3, quadrado e formatos personalizados. A nuvem deve adaptar-se automaticamente às dimensões escolhidas.
 
 **Prompt 3 — Identificador de cores**
 
-> No programa de cores, quero conseguir selecionar qualquer cor de uma paleta e descobrir o código correspondente. Mostra os códigos HEX, RGB e HSL, permite copiá-los e acrescenta um seletor de cores personalizado.
+No programa de cores, quero conseguir selecionar qualquer cor de uma paleta e descobrir o código correspondente. Mostra os códigos HEX, RGB e HSL, permite copiá-los e acrescenta um seletor de cores personalizado.
 
 **Prompt 4 — Dificuldades do jogo**
 
-> No jogo do número secreto, mantém o modo Fácil com 30 tentativas. No Médio coloca apenas 10 tentativas com dicas. No Difícil coloca também 10 tentativas, mas sem revelar se o número é maior ou menor, sem mostrar intervalos mais pequenos e sem outras dicas.
+No jogo do número secreto, mantém o modo Fácil com 30 tentativas. No Médio coloca apenas 10 tentativas com dicas. No Difícil coloca também 10 tentativas, mas sem revelar se o número é maior ou menor, sem mostrar intervalos mais pequenos e sem outras dicas.
 
 **Prompt 5 — Melhorias de navegação**
 
-> Quero que os três programas apareçam lado a lado em cartões na página inicial. Ao clicar num cartão, o respetivo programa deve aparecer logo por baixo, ocupando a largura disponível no computador. Mantém tudo na mesma página.
+Quero que os três programas apareçam lado a lado em cartões na página inicial. Ao clicar num cartão, o respetivo programa deve aparecer logo por baixo, ocupando a largura disponível no computador. Mantém tudo na mesma página.
 
 ### 3.3. Dificuldades e Erros Corrigidos com a IA
 
@@ -138,19 +138,19 @@ Inicialmente, experimentei diferentes designs, com o objetivo de criar uma inter
 
 **Prompt 1 — Interface inspirada num sistema operativo**
 
-> Experimenta criar uma interface semelhante a um pequeno sistema operativo, com três aplicações independentes, ícones coloridos e janelas com um aspeto moderno.
+Experimenta criar uma interface semelhante a um pequeno sistema operativo, com três aplicações independentes, ícones coloridos e janelas com um aspeto moderno.
 
 **Prompt 2 — Adaptação para computador**
 
-> Gosto do estilo apresentado, mas quero uma estrutura mais adequada ao computador. Coloca os três programas em cartões na parte superior e faz com que, ao clicar num deles, o programa apareça por baixo. Não quero janelas flutuantes.
+Gosto do estilo apresentado, mas quero uma estrutura mais adequada ao computador. Coloca os três programas em cartões na parte superior e faz com que, ao clicar num deles, o programa apareça por baixo. Não quero janelas flutuantes.
 
 **Prompt 3 — Melhorias visuais**
 
-> Mantém o fundo azul-escuro, mas melhora os cartões, as fontes, os botões, as margens e os espaçamentos. Quero um aspeto mais profissional e uniforme.
+Mantém o fundo azul-escuro, mas melhora os cartões, as fontes, os botões, as margens e os espaçamentos. Quero um aspeto mais profissional e uniforme.
 
 **Prompt 4 — Design do jogo**
 
-> Experimenta outro design para o jogo do número secreto, mas não mudes a estrutura nem a forma de jogar. Quero apenas melhorar o aspeto visual, com cores mais harmoniosas, botões modernos e uma apresentação mais cuidada.
+Experimenta outro design para o jogo do número secreto, mas não mudes a estrutura nem a forma de jogar. Quero apenas melhorar o aspeto visual, com cores mais harmoniosas, botões modernos e uma apresentação mais cuidada.
 
 Depois de experimentar várias versões, escolhi uma estrutura simples, com fundo azul-escuro, cartões coloridos e áreas de trabalho brancas.
 
