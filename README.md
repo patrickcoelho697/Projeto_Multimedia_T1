@@ -142,7 +142,7 @@ Experimenta criar uma interface semelhante a um pequeno sistema operativo, com t
 
 **Prompt 2 — Adaptação para computador**
 
-Gosto do estilo apresentado, mas quero uma estrutura mais adequada ao computador. Coloca os três programas em cartões na parte superior e faz com que, ao clicar num deles, o programa apareça por baixo. Não quero janelas flutuantes.
+Gosto do estilo apresentado, mas quero uma estrutura mais adequada ao computador. Coloca os três programas em cartões na parte superior e faz com que, ao clicar num deles, o programa apareça por baixo.
 
 **Prompt 3 — Melhorias visuais**
 
